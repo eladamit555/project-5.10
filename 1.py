@@ -1,7 +1,7 @@
 board = [
-    ['', '', ''],
-    ['', '', ''],
-    ['', '', '']
+    [' ', ' ', ' '],
+    [' ', ' ', ' '],
+    [' ', ' ', ' ']
 ]
 def print_board(board):
     for row in board:
@@ -55,11 +55,18 @@ while True:
                     print('O win')
                     game_over = True
                     break
-        if not game_over:
-            if all(board[row][col] == '' for row in range(3) for col in range(3)):
-                print('Tie')
+        row, col = get_move('X')
+        board[row][col] = "X"
+        print_board(board)
+        for line in winning_lines:
+            if all(board[r][c] == 'X' for r, c in line):
+                print('X win')
                 game_over = True
                 break
+
+        if not game_over and all(board[r][c] != '' for r in range(3) for c in range(3)):
+            print('Tie')
+            game_over = True
 
 
     again = input("Do you want to play again? (y/n): ")

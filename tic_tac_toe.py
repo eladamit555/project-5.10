@@ -19,7 +19,7 @@ def get_move(player):
             continue
         row = (choice - 1) // 3
         col = (choice - 1) % 3
-        if board[row][col] != "":
+        if board[row][col] != " ":
             print("this spot is already taken")
             continue
         return row, col
@@ -46,6 +46,9 @@ while True:
                 print('X win')
                 game_over = True
                 break
+        if not game_over and all(board[r][c] != ' ' for r  in range(3) for c in range(3)):
+            print('Tie')
+            game_over = True
         if not game_over:
             row, col = get_move('O')
             board[row][col] = "O"
@@ -55,16 +58,8 @@ while True:
                     print('O win')
                     game_over = True
                     break
-        row, col = get_move('X')
-        board[row][col] = "X"
-        print_board(board)
-        for line in winning_lines:
-            if all(board[r][c] == 'X' for r, c in line):
-                print('X win')
-                game_over = True
-                break
 
-        if not game_over and all(board[r][c] != '' for r in range(3) for c in range(3)):
+        if not game_over and all(board[r][c] != ' ' for r in range(3) for c in range(3)):
             print('Tie')
             game_over = True
 
@@ -72,9 +67,9 @@ while True:
     again = input("Do you want to play again? (y/n): ")
     if again == 'y':
         board = [
-            ['', '', ''],
-            ['', '', ''],
-            ['', '', '']
+            [' ', ' ', ' '],
+            [' ', ' ', ' '],
+            [' ', ' ', ' ']
         ]
     else:
         print("Thank you for playing")
